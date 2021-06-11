@@ -5,7 +5,8 @@ import {
   IonContent,
   IonHeader,
   IonList,
-  IonPage,
+    IonPage,
+    IonCard,
   IonRefresher,
   IonRefresherContent,
     IonTitle,
@@ -18,16 +19,28 @@ import {
 } from '@ionic/react';
 import './Home.css';
 
-
+//https://jsonplaceholder.typicode.com/guide/
+//https://jsonplaceholder.typicode.com/users/1/albums
 const Login: React.FC = () => {
     const [user, setUser] = useState('');
     const fetchUserData = async () => {
         const axios = require('axios');
 
         let userData = await axios.get('https://jsonplaceholder.typicode.com/users?username=' + user);
-        localStorage.setItem('userid', '42');
+
+        localStorage.setItem('userid', userData.data[0].id);
         localStorage.setItem('user', user);
-        alert(localStorage.getItem('userid'))
+        setUser(user);
+        alert('ok='  )
+
+
+    }
+
+    const logout = () => {
+        localStorage.setItem('userid', '');
+        localStorage.setItem('user', '');
+        setUser('');
+        alert("logout")
     }
 
     let userid="localStorage.getItem()";
@@ -48,12 +61,13 @@ const Login: React.FC = () => {
 
         <IonHeader collapse="condense">
           <IonToolbar>
-            <IonTitle size="large">
+            <IonTitle size="small">
               Inbox
             </IonTitle>
           </IonToolbar>
               </IonHeader>
-              <IonItem>
+
+              <IonItem text-center>
                   <IonInput value={""} placeholder="Login" onIonInput={(e: any) => setUser(e.target.value)} ></IonInput>
               </IonItem>
               <IonItem>
@@ -62,10 +76,10 @@ const Login: React.FC = () => {
               <IonButton onClick={() => fetchUserData()} color="secondary">
                   Login
               </IonButton>
-              <IonButton color="secondary">
+              <IonButton onClick={() => logout()} color="danger">
                   Logout
               </IonButton>
-          
+ 
 
       </IonContent>
     </IonPage>

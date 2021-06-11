@@ -2,61 +2,18 @@ export interface Message {
   fromName: string;
   subject: string;
   date: string;
-  id: number;
+    id: number;
+    title?: string;
+
 }
+export interface Message1 {
 
-const messages: Message[] = [
-  {
-    fromName: 'Matt Chorsey',
-    subject: 'New event: Trip to Vegas',
-    date: '9:32 AM',
-    id: 0
-  },
-  {
-    fromName: 'Lauren Ruthford',
-    subject: 'Long time no chat',
-    date: '6:12 AM',
-    id: 1
-  },
-  {
-    fromName: 'Jordan Firth',
-    subject: 'Report Results',
-    date: '4:55 AM',
-    id: 2
+    thumbnailUrl?: string;
 
-  },
-  {
-    fromName: 'Bill Thomas',
-    subject: 'The situation',
-    date: 'Yesterday',
-    id: 3
-  },
-  {
-    fromName: 'Joanne Pollan',
-    subject: 'Updated invitation: Swim lessons',
-    date: 'Yesterday',
-    id: 4
-  },
-  {
-    fromName: 'Andrea Cornerston',
-    subject: 'Last minute ask',
-    date: 'Yesterday',
-    id: 5
-  },
-  {
-    fromName: 'Moe Chamont',
-    subject: 'Family Calendar - Version 1',
-    date: 'Last Week',
-    id: 6
-  },
-  {
-    fromName: 'Kelly Richardson',
-    subject: 'Placeholder Headhots',
-    date: 'Last Week',
-    id: 7
-  }
-];
+}
+const axios = require('axios');
 
-export const getMessages = () => messages;
-
-export const getMessage = (id: number) => messages.find(m => m.id === id);
+const fecth = async () => { let a = await axios.get('https://jsonplaceholder.typicode.com/users/1/albums');  return a.data; }
+//Todo tee tähän se 
+export const getMessages = async () => { let a = await axios.get('https://jsonplaceholder.typicode.com/users/1/albums');return a.data; };
+export const getMessage = async (id: number) => { let a = await fecth();return a.find((m:any) => m.id === id)} 

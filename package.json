@@ -16,6 +16,7 @@
     "@types/react-router": "^5.1.11",
     "@types/react-router-dom": "^5.1.7",
     "axios": "^0.21.1",
+    "chunk": "0.0.3",
     "ionicons": "^5.4.0",
     "mobx-persist": "^0.4.1",
     "mobx-react": "^7.2.0",

@@ -21,7 +21,7 @@ const Home: React.FC = () => {
   useIonViewWillEnter(async () => {
       const msgs: any = await getMessages();
 
-    setMessages(msgs);
+      setMessages(msgs);
   });
 
   const refresh = (e: CustomEvent) => {

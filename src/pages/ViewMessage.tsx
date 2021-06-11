@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Message, getMessage } from '../data/messages';
+import { Message,Message1, getMessage } from '../data/messages';
 import {
   IonBackButton,
   IonButtons,
@@ -11,20 +11,48 @@ import {
   IonNote,
   IonPage,
   IonToolbar,
-  useIonViewWillEnter,
+    useIonViewWillEnter,
+    IonGrid, IonRow, IonCol,
 } from '@ionic/react';
 import { personCircle } from 'ionicons/icons';
 import { useParams } from 'react-router';
 import './ViewMessage.css';
+const axios = require('axios');
+const chunk = require('chunk');
+const Row = (props: any) => {
+    let message = props.data;
+    return (
+        <IonGrid>
+            <IonRow>
+                {message.map((image: any) => <IonCol><img src={image.thumbnailUrl} /></IonCol>)}
+                
+      
+        </IonRow>
+    </IonGrid>)
 
+}
+const Grid1 = (props: any) => {
+    let message = props.data;
+    let dataChunk = chunk(message, 3);
+  
+    return (
+        <IonContent>
+
+            {dataChunk.map((row: any) => <Row data={row} />) }
+               
+    
+    </IonContent>)
+}
 function ViewMessage() {
-  const [message, setMessage] = useState<Message>();
-  const params = useParams<{ id: string }>();
 
-  useIonViewWillEnter(() => {
-    const msg = getMessage(parseInt(params.id, 10));
-    setMessage(msg);
-  });
+    const [message, setMessage] = useState<Message1[]>();
+    const params = useParams<{ id: string }>();
+
+    useIonViewWillEnter(async () => {
+        let images = await axios.get('https://jsonplaceholder.typicode.com/albums/1/photos');
+        const msg = (images.data);  
+        setMessage(msg);
+      });
 
   return (
     <IonPage id="view-message-page">
@@ -37,35 +65,23 @@ function ViewMessage() {
       </IonHeader>
 
       <IonContent fullscreen>
-        {message ? (
-          <>
+        {message ?  (
+                  <>
             <IonItem>
               <IonIcon icon={personCircle} color="primary"></IonIcon>
               <IonLabel className="ion-text-wrap">
-                <h2>
-                  {message.fromName}
-                  <span className="date">
-                    <IonNote>{message.date}</IonNote>
-                  </span>
-                </h2>
-                <h3>
-                  To: <IonNote>Me</IonNote>
-                </h3>
+                              <h2>
+                                  <h3>Album2 .... content</h3>
+                              
+                              </h2>    
               </IonLabel>
             </IonItem>
-
-            <div className="ion-padding">
-              <h1>{message.subject}</h1>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                sunt in culpa qui officia deserunt mollit anim id est laborum.
-              </p>
-            </div>
+            <Grid1 data={message} />
+          
+                        
+          
+                         
+     
           </>
         ) : (
           <div>Message not found</div>
