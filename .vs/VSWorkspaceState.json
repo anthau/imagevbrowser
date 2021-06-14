@@ -3,7 +3,6 @@
     "",
     "\\src",
     "\\src\\components",
-    "\\src\\data",
     "\\src\\pages"
   ],
   "SelectedNode": "\\src\\pages\\ViewMessage.tsx",
