@@ -1,6 +1,7 @@
 import MessageListItem from '../components/MessageListItem';
 import { useState } from 'react';
 import { Message, getMessages } from '../data/messages';
+import { useParams } from 'react-router';
 import {
   IonContent,
   IonHeader,
@@ -14,76 +15,86 @@ import {
     IonInput,
     IonToolbar,
     IonButton,
+    IonButtons,
     IonIcon,
   useIonViewWillEnter
 } from '@ionic/react';
 import './Home.css';
 
-//https://jsonplaceholder.typicode.com/guide/
-//https://jsonplaceholder.typicode.com/users/1/albums
 const Login: React.FC = () => {
+  
+
     const [user, setUser] = useState('');
     const fetchUserData = async () => {
+
         const axios = require('axios');
-
         let userData = await axios.get('https://jsonplaceholder.typicode.com/users?username=' + user);
-
         localStorage.setItem('userid', userData.data[0].id);
         localStorage.setItem('user', user);
         setUser(user);
-        alert('ok='  )
-
-
+        window.location.reload(); 
     }
 
     const logout = () => {
         localStorage.setItem('userid', '');
         localStorage.setItem('user', '');
         setUser('');
-        alert("logout")
+        window.location.reload(); 
+       
     }
 
-    let userid="localStorage.getItem()";
-  return (
-      <IonPage id="home-pag1e">
+    let userid = "localStorage.getItem()";
+    if (localStorage.getItem('user') == null || localStorage.getItem('user') == '') {
+        return (
+            <IonPage id="home-page">
+                <IonToolbar>
+                    <IonItem>{localStorage.getItem('user')}</IonItem>
+                    <IonItem>
+                    </IonItem>
+                </IonToolbar>
 
+                <IonContent fullscreen>
+                    <IonHeader translucent>
+                        <IonToolbar>
+                            <IonContent>
 
-        <IonToolbar>
-                  <IonItem>{localStorage.getItem('user')}</IonItem>
-                  <IonItem>
-     
-                      </IonItem>
-
-        </IonToolbar>
-
-      <IonContent fullscreen>
-
-
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="small">
-              Inbox
-            </IonTitle>
-          </IonToolbar>
-              </IonHeader>
-
-              <IonItem text-center>
-                  <IonInput value={""} placeholder="Login" onIonInput={(e: any) => setUser(e.target.value)} ></IonInput>
-              </IonItem>
-              <IonItem>
-                  <IonInput value={""}  placeholder="password" ></IonInput>
-              </IonItem>
-              <IonButton onClick={() => fetchUserData()} color="secondary">
-                  Login
+                            </IonContent>
+                            <IonButtons>
+             
+                                <IonButton color="danger">
+                                    Logout
               </IonButton>
-              <IonButton onClick={() => logout()} color="danger">
-                  Logout
-              </IonButton>
- 
 
-      </IonContent>
-    </IonPage>
-  );
+                            </IonButtons>
+                        </IonToolbar>
+                    </IonHeader>
+
+                    <IonItem text-center>
+                        <IonInput value={""} placeholder="Login" onIonInput={(e: any) => setUser(e.target.value)} ></IonInput>
+                    </IonItem>
+                    <IonItem>
+                        <IonInput value={""} placeholder="password" ></IonInput>
+                    </IonItem>
+                    <IonButton onClick={() => fetchUserData()} color="secondary">
+                        Login
+              </IonButton>
+                    <IonButton onClick={() => logout()} color="danger">
+                        Logout
+              </IonButton>
+
+
+                </IonContent>
+            </IonPage>
+      )} else {
+        return (
+            <IonPage id="home-page">
+                <IonTitle>You are already logged in! Go to  <a href="http://localhost:3000/Home">albums:</a></IonTitle>
+
+                <IonButton onClick={() => logout()} color="danger">Logout</IonButton>
+            </IonPage>
+            )
+    }
+  
 };
 
 export default Login;

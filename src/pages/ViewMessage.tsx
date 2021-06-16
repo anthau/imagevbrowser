@@ -35,23 +35,11 @@ function counterReducer(state = { www : '' }, action: any) {
         default:
     }
             return state
-    
 }
 
 const store = createStore(counterReducer)
 
-function setModal(state = { visible: false }, action: any) {
 
-    switch (action.type) {
-        case 'set':
-   
-            return { visible: action.visible }
-        default:
-    }
-    return state
-
-}
-const window1 = createStore(setModal)
 const Row = (props: any) => {
     let message = props.data;
     const [redraw, setRedraw] = useState(false);
@@ -64,8 +52,7 @@ const Row = (props: any) => {
             <IonRow>
                 {message.map((image: any) =>
                     <IonCol onClick={() => { store.dispatch({ type: 'url', www: image.url });  setRedraw(true) }} ><img src={image.thumbnailUrl} />
-                    </IonCol>)}
-                     
+                    </IonCol>)}            
         </IonRow>
     </IonGrid>)
     
@@ -73,7 +60,6 @@ const Row = (props: any) => {
 const Grid1 = (props: any) => {
     let message = props.data;
     let dataChunk = chunk(message, 3);
-  
     return (
         <IonContent>
             {dataChunk.map((row: any) => <Row data={row} />) }
@@ -85,7 +71,7 @@ function ViewMessage() {
     const params = useParams<{ id: string }>();
 
     useIonViewWillEnter(async () => {
-        let images = await axios.get('https://jsonplaceholder.typicode.com/albums/1/photos');
+        let images = await axios.get('https://jsonplaceholder.typicode.com/albums/' +params.id + '/photos');
         const msg = (images.data);  
         setMessage(msg);
       });
@@ -99,7 +85,7 @@ function ViewMessage() {
                                
                   </IonContent>
           <IonButtons>
-            <IonBackButton text="Inbox" defaultHref="/home"></IonBackButton>
+            <IonBackButton text="Albums" defaultHref="/home"></IonBackButton>
           </IonButtons>
         </IonToolbar>
       </IonHeader>

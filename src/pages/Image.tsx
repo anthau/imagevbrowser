@@ -18,12 +18,6 @@ const Home: React.FC = () => {
 
   const [messages, setMessages] = useState<Message[]>([]);
 
-  useIonViewWillEnter(async () => {
-      const msgs: any = await getMessages();
-
-      setMessages(msgs);
-  });
-
   const refresh = (e: CustomEvent) => {
     setTimeout(() => {
       e.detail.complete();
