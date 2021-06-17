@@ -3,8 +3,10 @@
     "",
     "\\public",
     "\\src",
+    "\\src\\components",
+    "\\src\\data",
     "\\src\\pages"
   ],
-  "SelectedNode": "\\src\\pages\\Login.tsx",
+  "SelectedNode": "\\src\\pages\\Home.tsx",
   "PreviewInSolutionExplorer": false
 }

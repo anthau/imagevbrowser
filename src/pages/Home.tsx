@@ -1,27 +1,25 @@
 import MessageListItem from '../components/MessageListItem';
 import { useState } from 'react';
 import { Message, getMessages } from '../data/messages';
-import { useParams } from 'react-router';
+import Logout from '../components/Logout';
 import {
   IonContent,
   IonHeader,
   IonList,
     IonPage,
-    IonButton,
   IonRefresher,
   IonRefresherContent,
-  IonTitle,
     IonToolbar,
     IonBackButton, IonButtons,
   useIonViewWillEnter
 } from '@ionic/react';
 import './Home.css';
+
 //https://jsonplaceholder.typicode.com/users/1/albums
+
 const Home: React.FC = () => {
-    const params = useParams<{ id: string }>();
-
+  
   const [messages, setMessages] = useState<Message[]>([]);
-
   useIonViewWillEnter(async () => {
       const msgs: any = await getMessages(("" + localStorage.getItem('userid')));   
         setMessages(msgs);
@@ -35,18 +33,11 @@ const Home: React.FC = () => {
 
   return (
       <IonPage id="home-page">
-      
           <IonHeader translucent>
               <IonToolbar>
-                  <IonContent>
-                               
-                  </IonContent>
           <IonButtons>
                       <IonBackButton text="Back to login" defaultHref="/login"></IonBackButton>
-                      <IonButton color="danger">
-                          Logout
-              </IonButton>
-
+                      <Logout/>
           </IonButtons>
         </IonToolbar>
       </IonHeader>
@@ -57,11 +48,7 @@ const Home: React.FC = () => {
         </IonRefresher>
 
         <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">
-              Inbox
-            </IonTitle>
-          </IonToolbar>
+          <IonToolbar/>
         </IonHeader>
 
         <IonList>

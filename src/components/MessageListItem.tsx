@@ -1,9 +1,8 @@
 import {
   IonItem,
   IonLabel,
-    IonNote,
-    IonGrid, IonRow, IonCol, IonContent 
   } from '@ionic/react';
+
 import { Message } from '../data/messages';
 import './MessageListItem.css';
 
