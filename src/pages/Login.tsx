@@ -81,7 +81,7 @@ const Login: React.FC = () => {
                     </IonToolbar>
                 </IonHeader>
                 <IonContent fullscreen>
-                    <IonText>You are already logged in! Go to  <a href="http://localhost:3000/Home">albums:</a></IonText>
+                    <IonText>You are already logged in! Go to  <a href="/Home">albums:</a></IonText>
                     </IonContent>  
             </IonPage>
             )
